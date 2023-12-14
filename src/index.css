@@ -68,6 +68,14 @@ input:focus {
   border-radius: 5px;
 }
 
+.loginBtn {
+  background-color: #00c46a;
+  padding: 0.5rem 1rem;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
 .active {
   /* background-color: #00c46a; */
   /* color: var(--color-light--2); */

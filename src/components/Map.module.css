@@ -3,10 +3,7 @@
   height: 100%;
   background-color: var(--color-dark--2);
   position: relative;
-}
-
-.map {
-  height: 100%;
+  border-radius: 0 10px 10px 0;
 }
 
 /* Here we want to style classes that are coming from leaflet. So we want CSS Modules to give us the ACTUAL classnames, not to add some random ID to them, because then they won't match the classnames defined inside the map. The solution is to define these classes as GLOBAL */
