@@ -2,7 +2,7 @@
 .cityItem:link,
 .cityItem:visited {
   display: flex;
-  gap: 1.6rem;
+  gap: 1rem;
   align-items: center;
 
   background-color: var(--color-dark--2);
@@ -21,18 +21,18 @@
 }
 
 .emoji {
-  font-size: 2.6rem;
+  font-size: 1.5rem;
   line-height: 1;
 }
 
 .name {
-  font-size: 1.7rem;
+  font-size: 1.1rem;
   font-weight: 600;
   margin-right: auto;
 }
 
 .date {
-  font-size: 1.5rem;
+  font-size: 1.1rem;
 }
 
 .deleteBtn {
