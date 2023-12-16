@@ -5,13 +5,8 @@ export default function CityItem({ city }) {
   const month = new Date(city.date).toLocaleString("default", {
     month: "long",
   });
-
-  console.log(month);
-
   const date = new Date(city.date).getDate();
   const year = new Date(city.date).getFullYear();
-
-  //   console.log(date.getDay());
 
   return (
     <li className={styles.cityItem}>
