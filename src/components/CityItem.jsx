@@ -1,8 +1,11 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import styles from "./CityItem.module.css";
+import { useCities } from "../context/CitiesContext";
 
 export default function CityItem({ city }) {
+  const { currentCity } = useCities();
+
   const month = new Date(city.date).toLocaleString("default", {
     month: "long",
   });
@@ -12,7 +15,9 @@ export default function CityItem({ city }) {
   return (
     <li>
       <Link
-        className={styles.cityItem}
+        className={`${styles.cityItem} ${
+          city.id === currentCity.id ? styles["cityItem--active"] : ""
+        }`}
         to={`${city.id}?lat=${city.position.lat}&lng=${city.position.lng}`}
       >
         <span className={styles.emoji}>{city.emoji}</span>

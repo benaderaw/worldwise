@@ -1,7 +1,11 @@
 /* eslint-disable react/prop-types */
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useCities } from "../context/CitiesContext";
+import { useLayoutEffect } from "react";
+
 import styles from "./City.module.css";
+import Spinner from "./Spinner";
+import Button from "./Button";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -13,14 +17,17 @@ const formatDate = (date) =>
 
 //
 function City() {
-  const { cities } = useCities();
+  const { id } = useParams();
+  const { currentCity, getCity, isLoading } = useCities();
+  const navigate = useNavigate();
 
-  const paramId = useParams();
-  if (cities.length === 0) return;
+  // useEffect - load city data
+  useLayoutEffect(() => {
+    getCity(id);
+  }, [id]);
 
-  const currentCity = cities.filter((city) => city.id === +paramId.id);
-
-  const { cityName, emoji, date, notes } = currentCity.at(0);
+  if (isLoading) return <Spinner />;
+  const { cityName, emoji, date, notes } = currentCity;
 
   return (
     <div className={styles.city}>
@@ -54,7 +61,11 @@ function City() {
         </a>
       </div>
 
-      <div>{/* <ButtonBack /> */}</div>
+      <div>
+        <Button onClick={() => navigate(-1)} type="back">
+          &larr; Back
+        </Button>
+      </div>
     </div>
   );
 }
