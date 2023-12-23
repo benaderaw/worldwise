@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useParams } from "react-router-dom";
+import { useCities } from "../context/CitiesContext";
 import styles from "./City.module.css";
 
 const formatDate = (date) =>
@@ -11,10 +12,13 @@ const formatDate = (date) =>
   }).format(new Date(date));
 
 //
-function City({ cities }) {
-  const x = useParams();
+function City() {
+  const { cities } = useCities();
 
-  const currentCity = cities.filter((city) => city.id === +x.id);
+  const paramId = useParams();
+  if (cities.length === 0) return;
+
+  const currentCity = cities.filter((city) => city.id === +paramId.id);
 
   const { cityName, emoji, date, notes } = currentCity.at(0);
 

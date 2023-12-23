@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useCities } from "../context/CitiesContext";
 import CityItem from "./CityItem";
 import styles from "./CityList.module.css";
 import Loading from "./Loading";
 import Message from "./Message";
 
-export default function CityList({ cities, isLoading }) {
+export default function CityList() {
+  const { cities, isLoading } = useCities();
+
   if (isLoading) return <Loading />;
   if (!cities.length) return <Message message={"No cities found"} />;
 

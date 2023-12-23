@@ -1,10 +1,13 @@
 /* eslint-disable react/prop-types */
+import { useCities } from "../context/CitiesContext";
 import CountryItem from "./CountryItem";
 import styles from "./CountryList.module.css";
 import Loading from "./Loading";
 import Message from "./Message";
 
-export default function CountryList({ cities, isLoading }) {
+export default function CountryList() {
+  const { cities, isLoading } = useCities();
+
   if (isLoading) return <Loading />;
   if (!cities.length) return <Message message={"No cities found"} />;
 
@@ -17,8 +20,6 @@ export default function CountryList({ cities, isLoading }) {
   ).map((country) => {
     return JSON.parse(country);
   });
-
-  console.log(countries);
 
   return (
     <div className={styles.countryList}>
