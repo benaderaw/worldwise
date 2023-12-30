@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
@@ -6,18 +6,15 @@ import ChangeMapView from "./ChangeMapView";
 import { useCities } from "../context/CitiesContext";
 
 export default function Map() {
-  const { cities } = useCities();
-  const [mapPosition, setMapPosition] = useState([40, 0]);
+  const { mapPosition, setMapPosition } = useCities();
   const [searchParams, setSearchParams] = useSearchParams();
 
-  console.log(cities);
-
-  const lat = Number(searchParams.get("lat"));
-  const lng = Number(searchParams.get("lng"));
+  const lat = searchParams.get("lat");
+  const lng = searchParams.get("lng");
 
   useEffect(() => {
-    setMapPosition([lat, lng]);
-  }, [lat, lng]);
+    if (lat && lng) setMapPosition([lat, lng]);
+  }, [setMapPosition, lat, lng]);
 
   return (
     <div className={styles.mapContainer}>
@@ -31,21 +28,7 @@ export default function Map() {
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
-        <ChangeMapView coords={mapPosition} />
-
-        {cities.map((city) => (
-          <Marker
-            position={[city.position.lat, city.position.lng]}
-            key={city.id}
-          >
-            <Popup>
-              <span>{city.emoji}</span>
-              <span>
-                {city.cityName}, {city.country}
-              </span>
-            </Popup>
-          </Marker>
-        ))}
+        <ChangeMapView coords={mapPosition} lat={lat} lng={lng} />
       </MapContainer>
     </div>
   );

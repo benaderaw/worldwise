@@ -8,6 +8,7 @@ function CitiesProvider({ children }) {
   const [cities, setCities] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [currentCity, setCurrentCity] = useState({});
+  const [mapPosition, setMapPosition] = useState([40, 0]);
 
   useEffect(() => {
     async function fetchCities() {
@@ -50,7 +51,16 @@ function CitiesProvider({ children }) {
   }
 
   return (
-    <citiesContext.Provider value={{ cities, isLoading, currentCity, getCity }}>
+    <citiesContext.Provider
+      value={{
+        cities,
+        isLoading,
+        currentCity,
+        getCity,
+        mapPosition,
+        setMapPosition,
+      }}
+    >
       {children}
     </citiesContext.Provider>
   );
