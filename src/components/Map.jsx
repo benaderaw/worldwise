@@ -1,5 +1,5 @@
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { MapContainer, TileLayer, useMap, useMapEvent } from "react-leaflet";
+import { Navigate, useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Map.module.css";
 import { useEffect, useState } from "react";
 import ChangeMapView from "./ChangeMapView";
@@ -29,7 +29,15 @@ export default function Map() {
           url="https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png"
         />
         <ChangeMapView coords={mapPosition} lat={lat} lng={lng} />
+        <DetectClick />
       </MapContainer>
     </div>
   );
+}
+
+function DetectClick() {
+  const navigate = useNavigate();
+  useMapEvent({
+    click: (e) => navigate("form"),
+  });
 }

@@ -4,11 +4,9 @@ import { useCities } from "../context/CitiesContext";
 import { useEffect } from "react";
 
 export default function ChangeMapView({ coords, lat, lng }) {
-  const { cities, mapPosition } = useCities();
+  const { cities } = useCities();
   const map = useMap();
   map.setView(coords, map.getZoom(1));
-
-  console.log(mapPosition);
 
   useEffect(() => {
     if (lat && lng) map.closePopup();
