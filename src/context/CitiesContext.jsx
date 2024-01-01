@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { useState, useEffect, useContext } from "react";
 import { createContext } from "react";
+import useGeoLocation from "../hooks/useGeoLocation";
+import { setOptions } from "leaflet";
 
 const citiesContext = createContext();
 
@@ -10,7 +12,14 @@ function CitiesProvider({ children }) {
   const [currentCity, setCurrentCity] = useState({});
   const [mapPosition, setMapPosition] = useState([40, 0]);
 
+  const { position, getPosition } = useGeoLocation();
+
+  // useEffect(() => {
+  //   setMapPosition([position.lat, position.lng]);
+  // }, [setMapPosition, position.lat, position.lng]);
+
   useEffect(() => {
+    getPosition();
     async function fetchCities() {
       try {
         setIsLoading(true);
