@@ -1,12 +1,14 @@
 import { useState } from "react";
 
-export default function useGeoLocation() {
-  const [position, setPosition] = useState({});
-  const [isLoadingx, setIsLoadingx] = useState(false);
+// get user location
+
+export function useGeoLocation(defaultPosition = null) {
+  const [position, setPosition] = useState(defaultPosition);
+  const [isLoadingPosition, setIsLoadingPosition] = useState(false);
 
   function getPosition() {
     // get location
-    setIsLoadingx(true);
+    setIsLoadingPosition(true);
     navigator.geolocation.getCurrentPosition(
       function (pos) {
         setPosition({
@@ -14,14 +16,14 @@ export default function useGeoLocation() {
           lng: pos.coords.longitude,
         });
 
-        setIsLoadingx(false);
+        setIsLoadingPosition(false);
       },
       function (error) {
         console.log(error.message);
-        setIsLoadingx(false);
+        setIsLoadingPosition(false);
       }
     );
   }
 
-  return { position, isLoadingx, setIsLoadingx, getPosition };
+  return { position, isLoadingPosition, setIsLoadingPosition, getPosition };
 }
