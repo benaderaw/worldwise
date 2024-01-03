@@ -5,16 +5,18 @@ import {
   TileLayer,
   useMapEvent,
 } from "react-leaflet";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import styles from "./Map.module.css";
+
+import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
-import ChangeMapView from "./ChangeMapView";
 import { useCities } from "../context/CitiesContext";
-import Spinner from "./Spinner";
-import Button from "./Button";
 import { useGeoLocation } from "../hooks/useGeoLocation";
+import { useParams } from "../hooks/useParams";
+import Button from "./Button";
+import ChangeMapView from "./ChangeMapView";
 
 export default function Map() {
+  const { lat, lng } = useParams();
   const {
     isLoadingPosition,
     getPosition,
@@ -22,15 +24,13 @@ export default function Map() {
   } = useGeoLocation();
 
   const { mapPosition, setMapPosition } = useCities();
-  const [searchParams, setSearchParams] = useSearchParams();
 
-  const lat = searchParams.get("lat");
-  const lng = searchParams.get("lng");
-
+  // set location
   useEffect(() => {
     if (lat && lng) setMapPosition([lat, lng]);
   }, [setMapPosition, lat, lng]);
 
+  // get and set user location
   useEffect(() => {
     if (geolocationPosition)
       setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
