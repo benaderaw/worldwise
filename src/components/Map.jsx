@@ -12,8 +12,8 @@ import { useEffect } from "react";
 import { useCities } from "../context/CitiesContext";
 import { useGeoLocation } from "../hooks/useGeoLocation";
 import { useParams } from "../hooks/useParams";
-import Button from "./Button";
 import ChangeMapView from "./ChangeMapView";
+import Button from "./Button";
 
 export default function Map() {
   const { lat, lng } = useParams();

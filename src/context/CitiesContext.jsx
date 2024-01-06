@@ -32,6 +32,7 @@ function CitiesProvider({ children }) {
     fetchCities();
   }, [setCities, setIsLoading]);
 
+  //
   async function getCity(id) {
     try {
       setIsLoading(true);
@@ -50,6 +51,35 @@ function CitiesProvider({ children }) {
     }
   }
 
+  //
+  async function createCity(newCity) {
+    try {
+      setIsLoading(true);
+      const res = await fetch(`http://localhost:8000/cities`, {
+        method: "POST",
+        body: JSON.stringify(newCity),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+
+      // if (!res.ok)
+      //   throw new Error("fetching api failed, something went wrong.");
+
+      const data = await res.json();
+
+      console.log(data);
+
+      setCities((cities) => [...cities, data]);
+
+      // setCurrentCity(data);
+    } catch (error) {
+      alert("There was an error loading data...");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <citiesContext.Provider
       value={{
@@ -59,6 +89,7 @@ function CitiesProvider({ children }) {
         getCity,
         mapPosition,
         setMapPosition,
+        createCity,
       }}
     >
       {children}
