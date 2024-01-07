@@ -80,6 +80,28 @@ function CitiesProvider({ children }) {
     }
   }
 
+  //
+  async function deleteCity(id) {
+    try {
+      setIsLoading(true);
+      await fetch(`http://localhost:8000/cities/${id}`, {
+        method: "DELETE",
+      });
+
+      setCities((cities) =>
+        cities.filter((city) => {
+          if (city.id !== id) return city;
+        })
+      );
+
+      // setCurrentCity(data);
+    } catch (error) {
+      alert("There was an error deleting the city...");
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <citiesContext.Provider
       value={{
@@ -90,6 +112,7 @@ function CitiesProvider({ children }) {
         mapPosition,
         setMapPosition,
         createCity,
+        deleteCity,
       }}
     >
       {children}
