@@ -34,9 +34,10 @@ function reducer(state, action) {
           if (city.id !== action.payload) return city;
         }),
       };
-
     case "rejected":
       return { ...state, isLoading: false, error: action.payload };
+    case "map/position":
+      return { ...state, mapPosition: action.payload };
 
     default:
       throw new Error("Unknown action type");
@@ -143,6 +144,7 @@ function CitiesProvider({ children }) {
         mapPosition,
         createCity,
         deleteCity,
+        dispatch,
       }}
     >
       {children}

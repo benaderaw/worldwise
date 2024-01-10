@@ -23,18 +23,19 @@ export default function Map() {
     position: geolocationPosition,
   } = useGeoLocation();
 
-  const { mapPosition, setMapPosition } = useCities();
+  const { dispatch, mapPosition } = useCities();
 
   // set location
   useEffect(() => {
-    if (lat && lng) setMapPosition([lat, lng]);
-  }, [setMapPosition, lat, lng]);
+    // if (lat && lng) setMapPosition([lat, lng]);
+    if (lat && lng) dispatch({ type: "map/position", payload: [lat, lng] });
+  }, [dispatch, lat, lng]);
 
   // get and set user location
-  useEffect(() => {
-    if (geolocationPosition)
-      setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
-  }, [geolocationPosition, setMapPosition]);
+  // useEffect(() => {
+  //   if (geolocationPosition)
+  //     setMapPosition([geolocationPosition.lat, geolocationPosition.lng]);
+  // }, [geolocationPosition, setMapPosition]);
 
   return (
     <>
