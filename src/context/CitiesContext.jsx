@@ -122,11 +122,12 @@ function CitiesProvider({ children }) {
   async function deleteCity(id) {
     try {
       dispatch({ type: "loading" });
+
       await fetch(`http://localhost:8000/cities/${id}`, {
         method: "DELETE",
       });
 
-      dispatch({ type: "city/created", payload: id });
+      dispatch({ type: "city/deleted", payload: id });
 
       // setCurrentCity(data);
     } catch (error) {
