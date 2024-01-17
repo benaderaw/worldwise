@@ -20,17 +20,23 @@ function reducer(state, action) {
 }
 
 const FAKE_USER = {
-  name: "Jack",
-  email: "jack@example.com",
-  password: "qwerty",
+  name: "Benyam",
+  email: "benyam@example.com",
+  password: "1234",
   avatar: "https://i.pravatar.cc/100?u=zz",
 };
 
 function AuthProvider({ children }) {
-  const [{ user, isAuthenticated }, dispatch] = useReducer(initialState);
+  const [{ user, isAuthenticated }, dispatch] = useReducer(
+    reducer,
+    initialState
+  );
+
   function login(email, password) {
     if (email === FAKE_USER.email && password === FAKE_USER.password)
-      dispatch({ type: "login", payload: FAKE_USER });
+      return dispatch({ type: "login", payload: FAKE_USER });
+
+    throw new Error("Invalid email or password");
   }
 
   function logout() {
@@ -48,6 +54,8 @@ function useAuth() {
   const context = useContext(AuthContext);
   if (context === undefined)
     throw new Error("AuthContext is being used outside AuthProvider");
+
+  return context;
 }
 
 export { AuthProvider, useAuth };
